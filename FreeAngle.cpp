@@ -1,7 +1,8 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <math.h>
-#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
 
 
 float distancia(int x1, int y1, int x2, int y2){                //calc dist entre 2 pontos
@@ -34,8 +35,8 @@ int main (){
     lines[11].position = sf::Vector2f(115, 415);
     lines[12].position = sf::Vector2f(15, 415);
     sf::Vertex line[] = {
-        sf::Vertex(sf::Vector2f(465, 15)),
-        sf::Vertex(sf::Vector2f(465, 615))};
+            sf::Vertex(sf::Vector2f(465, 15)),
+            sf::Vertex(sf::Vector2f(465, 615))};
     sf::CircleShape circle(5);
     circle.setFillColor(sf::Color::White);
     circle.setPosition(460,310);
@@ -43,7 +44,7 @@ int main (){
     bola.setFillColor(sf::Color(255,165,0));
     bola.setPosition(460,310);
     sf::CircleShape circle2(15);
-    circle2.setFillColor(sf::Color::Red);
+    circle2.setFillColor(sf::Color::Black);
     circle2.setPosition(550,300);
     circle2.setOutlineColor(sf::Color::Black);
     circle2.setOutlineThickness(3);
@@ -89,7 +90,7 @@ int main (){
         while (window.pollEvent(event)){
             if (event.type == sf::Event::Closed){
                 window.close();
-			}
+            }
             if(event.type == sf::Event::MouseButtonPressed){
 
                 if((x>=bolax - 5  && x<= bolax + 5)&&(y>=bolay - 5 && y<=bolay + 5))
@@ -104,21 +105,21 @@ int main (){
                     h=1;
                 if((x>=adv[3][0] - 15  && x<=adv[3][0] + 15)&&(y>=adv[3][1] - 15 && y<=adv[3][1] + 15))
                     b=1;
-             
-             }
-        if(event.type == sf::Event::MouseButtonReleased){
-            d=2;
-            e=2;
-            f=2;
-            g=2;
-            h=2;
-            b=2;
-            i=2;
-        }
-        if (event.type == sf::Event::MouseMoved)
+
+            }
+            if(event.type == sf::Event::MouseButtonReleased){
+                d=2;
+                e=2;
+                f=2;
+                g=2;
+                h=2;
+                b=2;
+                i=2;
+            }
+            if (event.type == sf::Event::MouseMoved)
             {
-            x=event.mouseMove.x;
-            y=event.mouseMove.y;
+                x=event.mouseMove.x;
+                y=event.mouseMove.y;
             }
         }
         if(d==1)
@@ -135,67 +136,27 @@ int main (){
             circle6.setPosition(x-15,y-15);
 
         //FREE ANGLE
-        /*unordered_map<int, list<pair<int, int>>> obstaculos;
-
-        for(int i = 0; i < 4; i++){
-            dist = distancia(adv[i][0],adv[i][1], jogx, jogy);
-            float dist2 = sqrt(pow(dist, 2) + pow(18, 2));
-            
-            float alfa = asin(18/dist);
-            float beta = atan(m);
-
-            if(adv[i][0]-jogx!=0)
-                m = float(adv[i][1]-jogy)/float(adv[i][0]-jogx);
-           
-            if(adv[i][0] >= jogx)
-                batata=-1;
-            
-            else
-                batata=1;
-            
-            int cLateralx = jogx - (batata*dist2*cos(beta+alfa));
-            int cLateraly = jogy - (batata*dist2*sin(beta+alfa));
-
-            int cLateral2x = jogx - (batata*dist2*cos(beta-alfa));
-            int cLateral2y = jogy - (batata*dist2*sin(beta-alfa));
-
-            obstaculos[i].push_back(make_pair(cLateralx, cLateraly));
-            obstaculos[i].push_back(make_pair(cLateral2x, cLateral2y));
-        }
-
-        sf::VertexArray lateral(sf::LinesStrip, 16);
-
-        for(int i = 0 ; i < 12; i++){ 
-            int contador = 0;
-           for(auto u : obstaculos[i]){ 
-                //lateral[i+1].position = sf::Vector2f(jogx, jogy);
-                if(contador == 0){
-                    lateral[i].position = sf::Vector2f(u.first, u.second);
-                    i++;
-                    lateral[i].position = sf::Vector2f(jogx, jogy);
-                    i++;
-                }
-                else
-                    lateral[i].position = sf::Vector2f(u.first, u.second);
-                    i++;
-                    lateral[i].position = sf::Vector2f(jogx, jogy);
-
-                contador++;              
-            }
-        }*/
-
-        
         for(i=0;i<4;i++){
             dist = distancia(adv[i][0],adv[i][1], jogx, jogy);
             float dist2 = sqrt(pow(dist, 2) + pow(18, 2));
+
             if(adv[i][0]-jogx!=0)
                 m = float(adv[i][1]-jogy)/float(adv[i][0]-jogx);
+
+            else {
+                if (adv[i][1] > jogy) m = 90;                       //Adv em cima
+                else m = -90;                                       //Adv em baixo
+            }
+
             float alfa = asin(18/dist);
             float beta = atan(m);
+
             if(jogx > adv[i][0])
                 batata=-1;
+
             else
                 batata=1;
+
             ponto[i][0] = jogx + int(batata*dist2*cos(beta+alfa));
             ponto[i][1] = jogy + int(batata*dist2*sin(beta+alfa));
 
@@ -203,11 +164,11 @@ int main (){
             ponto[i][3] = jogy + int(batata*dist2*sin(beta-alfa));
 
             if(jogx == adv[i][0]){
-            ponto[i][0] = jogx + int(batata*dist2*cos(beta+alfa));
-            ponto[i][1] = jogy - int(batata*dist2*sin(beta+alfa));
+                ponto[i][0] = jogx + int(batata*dist2*cos(beta+alfa));
+                ponto[i][1] = jogy - int(batata*dist2*sin(beta+alfa));
 
-            ponto[i][2] = jogx - int(batata*dist2*cos(beta-alfa));
-            ponto[i][3] = jogy + int(batata*dist2*sin(beta-alfa));
+                ponto[i][2] = jogx - int(batata*dist2*cos(beta-alfa));
+                ponto[i][3] = jogy + int(batata*dist2*sin(beta-alfa));
             }
         }
 
@@ -216,22 +177,23 @@ int main (){
         window.draw(line, 2, sf::Lines);
         window.draw(circle);
         window.draw(lines);
-        //window.draw(lateral1);
+
         for(i=0;i<4;i++){
             sf::VertexArray lateral(sf::Triangles, 3);
             lateral[0].position=sf::Vector2f(ponto[i][0], ponto[i][1]);
             lateral[1].position = sf::Vector2f(jogx, jogy);
             lateral[2].position=sf::Vector2f(ponto[i][2], ponto[i][3]);
             lateral[0].color = sf::Color::Red;
-            lateral[1].color = sf::Color::Red;
-            lateral[2].color = sf::Color::Red;
+            lateral[1].color = sf::Color::Yellow;
+            lateral[2].color = sf::Color::Blue;
             window.draw(lateral);
         }
+
         window.draw(circle3);
         window.draw(circle4);
         window.draw(circle5);
         window.draw(circle2);
         window.draw(circle6);
         window.display();
-        } 
+    }
 }
