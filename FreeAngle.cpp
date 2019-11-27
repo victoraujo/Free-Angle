@@ -168,7 +168,6 @@ int main (){
                 r=2;
                 o=2;
             
-
             }
             if (event.type == sf::Event::MouseMoved)
             {
@@ -206,8 +205,7 @@ int main (){
 
             if(adv[i][0]-jogx!=0)
                 m = float(adv[i][1]-jogy)/float(adv[i][0]-jogx);
-
-            
+      
             float alfa = asin(18/dist);
             float beta = atan(m);
 
