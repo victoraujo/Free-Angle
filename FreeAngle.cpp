@@ -13,7 +13,7 @@ float distancia(int x1, int y1, int x2, int y2){                //calc dist entr
 int main (){
     int x,y,xm,ym,xm2,ym2,d,a,e,f=0,g=0,h,i,b=0,t=1,j=0,q=0,w=0,r=0,o=0,aux;
     float dist,m,ang,d1,d2,dist2,kt,d3,d4,d5;
-    float ponto[9][4];
+    float ponto[9][4],angles[9][2];
     int adv[9][2];
     int bolax,bolay,jogx,jogy,batata,cLateral2y,cLateral2x,cLateraly,cLateralx;
 
@@ -216,6 +216,12 @@ int main (){
                 else beta = -1.5708;
             }
 
+            angles[i][0]= beta-abs(alfa);
+            angles[i][1]= beta+abs(alfa);
+
+            printf("%f;",angles[i][0]);
+            printf("%f\n",angles[i][1]);
+
             if(jogx > adv[i][0])
                 batata=-1;
 
@@ -231,7 +237,6 @@ int main (){
             
         }
 
-
         window.clear();
         window.draw(rectangle);
         window.draw(line, 2, sf::Lines);
@@ -244,8 +249,8 @@ int main (){
             lateral[1].position = sf::Vector2f(jogx, jogy);
             lateral[2].position=sf::Vector2f(ponto[i][2], ponto[i][3]);
             lateral[0].color = sf::Color::Red;
-            lateral[1].color = sf::Color::Yellow;
-            lateral[2].color = sf::Color::Blue;
+            lateral[1].color = sf::Color::Red;
+            lateral[2].color = sf::Color::Red;
             window.draw(lateral);
         }
         window.draw(circle3);
